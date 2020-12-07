@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_cadastrar_filme.*
 import lucassamel.br.at_fundamentosamdroid.R
 import lucassamel.br.at_fundamentosamdroid.model.Filme
 
 class CadastrarFilmeFragment : Fragment() {
 
+    private lateinit var filmeViewModel: FilmeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,18 +27,25 @@ class CadastrarFilmeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        filmeViewModel =
+            ViewModelProvider(this, FilmeViewModelFactory()).get(FilmeViewModel::class.java)
+
         btnCadastrarFilme.setOnClickListener {
             var nomeFilme = editTextNomeFilme.text.toString()
             var anoLancamento = editTextAnoFilme.text.toString()
 
-            var filme = Filme(nomeFilme, anoLancamento)
-            filme.store()
+            //var filme = Filme(nomeFilme, anoLancamento)
+            // filme.store()
+
+            filmeViewModel.salvarFilme(nomeFilme,anoLancamento)
+
             Toast.makeText(
                 requireContext(),
                 "Filme Cadastrado com Sucesso!",
                 Toast.LENGTH_LONG
             ).show()
 
+            findNavController().navigate(R.id.action_cadastrarFilmeFragment_to_listaFilmeFragment)
         }
 
     }
