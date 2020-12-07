@@ -37,15 +37,24 @@ class CadastrarFilmeFragment : Fragment() {
             //var filme = Filme(nomeFilme, anoLancamento)
             // filme.store()
 
-            filmeViewModel.salvarFilme(nomeFilme,anoLancamento)
+            if (!nomeFilme.isNullOrEmpty() && !anoLancamento.isNullOrEmpty()) {
+                filmeViewModel.salvarFilme(nomeFilme, anoLancamento)
 
-            Toast.makeText(
-                requireContext(),
-                "Filme Cadastrado com Sucesso!",
-                Toast.LENGTH_LONG
-            ).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Filme Cadastrado com Sucesso!",
+                    Toast.LENGTH_LONG
+                ).show()
 
-            findNavController().navigate(R.id.action_cadastrarFilmeFragment_to_listaFilmeFragment)
+                findNavController().navigate(R.id.action_cadastrarFilmeFragment_to_listaFilmeFragment)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Preencha todos os campos",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
         }
 
     }
