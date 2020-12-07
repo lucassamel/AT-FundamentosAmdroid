@@ -19,7 +19,7 @@ class FilmeViewModel : ViewModel() {
         get() = _status
 
     private val _msg = MutableLiveData<String>()
-    val msg : LiveData<String>
+    val msg: LiveData<String>
         get() = _msg
 
     init {
@@ -28,10 +28,17 @@ class FilmeViewModel : ViewModel() {
         getAll()
     }
 
-    fun getAll(){
+    fun getAll() {
+        _msg.value = "Consultando a base de dados."
         val appDatabase = AppDatabase.getInstance()
         _filmes.value = appDatabase.all()
+
+        if (true) {
+            _status.value = true
+            _msg.value = "Consulta ralizada com sucesso!"
+        }
     }
+
     fun salvarFilme(
         nomeFilme: String,
         anoLancamento: String

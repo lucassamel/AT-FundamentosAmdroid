@@ -28,4 +28,9 @@
             android:id="@+id/action_homeFragment_to_cadastrarFilmeFragment"
             app:destination="@id/cadastrarFilmeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/showFilmeFragment"
+        android:name="lucassamel.br.at_fundamentosamdroid.ShowFilmeFragment"
+        android:label="show_filme_fragment"
+        tools:layout="@layout/show_filme_fragment" />
 </navigation>
