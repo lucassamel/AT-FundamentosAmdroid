@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnHome.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_cadastrarFilmeFragment)
+           // findNavController().navigate(R.id.action_homeFragment_to_cadastrarFilmeFragment)
         }
     }
 

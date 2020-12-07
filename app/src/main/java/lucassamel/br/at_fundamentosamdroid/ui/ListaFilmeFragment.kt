@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_lista_filme.*
 import lucassamel.br.at_fundamentosamdroid.FullViewModel
 import lucassamel.br.at_fundamentosamdroid.R
 import lucassamel.br.at_fundamentosamdroid.adapter.FilmeRecyclerAdapter
+import lucassamel.br.at_fundamentosamdroid.model.Filme
 
 class ListaFilmeFragment : Fragment() {
 
@@ -49,7 +50,7 @@ class ListaFilmeFragment : Fragment() {
         listFilmeViewModel
             .filmes
             .observe(viewLifecycleOwner) { filmes ->
-                val filmeRecyclerAdapter = FilmeRecyclerAdapter(filmes)
+                val filmeRecyclerAdapter = FilmeRecyclerAdapter(filmes, this::actionClick)
                 listViewFilmes.adapter = filmeRecyclerAdapter
                 listViewFilmes.layoutManager = LinearLayoutManager(requireContext())
 //                listViewFilmes
@@ -59,7 +60,6 @@ class ListaFilmeFragment : Fragment() {
 //                    it
 //                )
             }
-
         return view
     }
 
@@ -69,6 +69,11 @@ class ListaFilmeFragment : Fragment() {
             msg,
             Snackbar.LENGTH_LONG
         ).show()
+    }
+
+    fun actionClick(filme : Filme){
+        fullViewModel.selectFilme(filme)
+        findNavController().navigate(R.id.showFilmeFragment)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +88,10 @@ class ListaFilmeFragment : Fragment() {
 //            findNavController().navigate(R.id.showFilmeFragment)
 //
 //        }
+
+            fabListFilmeCadastro.setOnClickListener {
+                findNavController().navigate(R.id.action_listaFilmeFragment_to_cadastrarFilmeFragment)
+            }
     }
 
 

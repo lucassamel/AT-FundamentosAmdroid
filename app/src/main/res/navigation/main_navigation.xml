@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/listaFilmeFragment">
 
     <fragment
         android:id="@+id/cadastrarFilmeFragment"
@@ -18,14 +18,9 @@
         android:id="@+id/listaFilmeFragment"
         android:name="lucassamel.br.at_fundamentosamdroid.ui.ListaFilmeFragment"
         android:label="fragment_lista_filme"
-        tools:layout="@layout/fragment_lista_filme" />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="lucassamel.br.at_fundamentosamdroid.ui.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_lista_filme" >
         <action
-            android:id="@+id/action_homeFragment_to_cadastrarFilmeFragment"
+            android:id="@+id/action_listaFilmeFragment_to_cadastrarFilmeFragment"
             app:destination="@id/cadastrarFilmeFragment" />
     </fragment>
     <fragment

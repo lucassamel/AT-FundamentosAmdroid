@@ -9,7 +9,8 @@ import lucassamel.br.at_fundamentosamdroid.R
 import lucassamel.br.at_fundamentosamdroid.model.Filme
 
 class FilmeRecyclerAdapter(
-    private val filmes : List<Filme>
+    private val filmes : List<Filme>,
+    private val actionClick : (Filme) -> Unit
 )
     : RecyclerView.Adapter<FilmeRecyclerAdapter.FilmeViewHolder>() {
 
@@ -17,7 +18,8 @@ class FilmeRecyclerAdapter(
         : RecyclerView.ViewHolder(view) {
             val textViewNome = view.textViewRecyclerFilmeNome
             val textViewLancamento = view.textViewRecyclerFilmeLacamento
-            //btn{funcao do botao}
+            val btnShow = view.btnRecyclerFilmeShow
+
 
     }
 
@@ -38,6 +40,9 @@ class FilmeRecyclerAdapter(
         val filme = filmes.get(position)
         holder.textViewLancamento.text = filme.anoLancamento
         holder.textViewNome.text = filme.nomeFilme
+        holder.btnShow.setOnClickListener {
+            actionClick(filme)
+        }
     }
 
     override fun getItemCount(): Int = filmes.size
