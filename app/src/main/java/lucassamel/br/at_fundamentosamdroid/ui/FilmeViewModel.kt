@@ -42,9 +42,8 @@ class FilmeViewModel : ViewModel() {
     fun salvarFilme(
         nomeFilme: String,
         anoLancamento: String
-    ): Boolean {
+    ) {
         var filme = Filme(nomeFilme, anoLancamento)
-        filme.store()
-        return true
+        AppDatabase.getInstance().store(filme)
     }
 }

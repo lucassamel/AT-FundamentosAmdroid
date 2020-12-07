@@ -10,6 +10,14 @@ class AppDatabase {
 
     fun all(): MutableList<Filme> = filmes
 
+    fun store(filme : Filme) {
+        filmes.add(filme)
+    }
+
+    fun delete(filme: Filme) {
+        filmes.remove(filme)
+    }
+
     companion object {
 
         private var instance: AppDatabase? = null
