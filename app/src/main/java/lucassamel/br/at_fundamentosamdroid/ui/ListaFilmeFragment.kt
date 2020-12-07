@@ -8,10 +8,12 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_lista_filme.*
 import lucassamel.br.at_fundamentosamdroid.FullViewModel
 import lucassamel.br.at_fundamentosamdroid.R
+import lucassamel.br.at_fundamentosamdroid.adapter.FilmeRecyclerAdapter
 
 class ListaFilmeFragment : Fragment() {
 
@@ -46,13 +48,16 @@ class ListaFilmeFragment : Fragment() {
 
         listFilmeViewModel
             .filmes
-            .observe(viewLifecycleOwner) {
-                listViewFilmes
-                    .adapter = ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_list_item_1,
-                    it
-                )
+            .observe(viewLifecycleOwner) { filmes ->
+                val filmeRecyclerAdapter = FilmeRecyclerAdapter(filmes)
+                listViewFilmes.adapter = filmeRecyclerAdapter
+                listViewFilmes.layoutManager = LinearLayoutManager(requireContext())
+//                listViewFilmes
+//                    .adapter = ArrayAdapter(
+//                    requireContext(),
+//                    android.R.layout.simple_list_item_1,
+//                    it
+//                )
             }
 
         return view
@@ -69,15 +74,15 @@ class ListaFilmeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listViewFilmes.setOnItemClickListener  { adapterView, view, i, l ->
-            val listaFilmes = listFilmeViewModel.filmes.value!!
-            val filme = listaFilmes.get(i)
-            fullViewModel.selectFilme(filme)
-            //showSnackbar((filme.toString())
-
-            findNavController().navigate(R.id.showFilmeFragment)
-
-        }
+//        listViewFilmes.setOnItemClickListener  { adapterView, view, i, l ->
+//            val listaFilmes = listFilmeViewModel.filmes.value!!
+//            val filme = listaFilmes.get(i)
+//            fullViewModel.selectFilme(filme)
+//            //showSnackbar((filme.toString())
+//
+//            findNavController().navigate(R.id.showFilmeFragment)
+//
+//        }
     }
 
 
