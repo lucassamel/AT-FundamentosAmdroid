@@ -17,12 +17,6 @@ class CadastrarFilmeFragment : Fragment() {
 
     private lateinit var filmeViewModel: FilmeViewModel
 
-    var quantidadeFilmes = MutableLiveData<Int>()
-
-    init {
-        quantidadeFilmes.value = 2
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,14 +24,15 @@ class CadastrarFilmeFragment : Fragment() {
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_cadastrar_filme, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        filmeViewModel =
-            ViewModelProvider(this, FilmeViewModelFactory()).get(FilmeViewModel::class.java)
+        var filmeViewModelFactory = FilmeViewModelFactory()
+        var viewModelProvider = ViewModelProvider(requireActivity(), filmeViewModelFactory)
+
+        filmeViewModel = viewModelProvider.get(FilmeViewModel::class.java)
 
         filmeViewModel.quantidadeFilme
             .observe(viewLifecycleOwner,
@@ -51,10 +46,8 @@ class CadastrarFilmeFragment : Fragment() {
 
             //var filme = Filme(nomeFilme, anoLancamento)
             // filme.store()
-
             if (!nomeFilme.isNullOrEmpty() && !anoLancamento.isNullOrEmpty()) {
                 filmeViewModel.salvarFilme(nomeFilme, anoLancamento)
-                filmeViewModel.addFilme()
 
                 Toast.makeText(
                     requireContext(),
@@ -62,7 +55,7 @@ class CadastrarFilmeFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
 
-                quantidadeFilmes.value!!.plus(1)
+                filmeViewModel.addFilme()
 
                 findNavController().navigate(R.id.action_cadastrarFilmeFragment_to_listaFilmeFragment)
             } else {

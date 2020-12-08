@@ -1,6 +1,7 @@
 package lucassamel.br.at_fundamentosamdroid.ui
 
 import android.text.BoringLayout
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
