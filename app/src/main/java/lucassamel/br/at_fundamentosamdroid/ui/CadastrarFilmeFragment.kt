@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_cadastrar_filme.*
@@ -16,12 +17,20 @@ class CadastrarFilmeFragment : Fragment() {
 
     private lateinit var filmeViewModel: FilmeViewModel
 
+    var quantidadeFilmes = MutableLiveData<Int>()
+
+    init {
+        quantidadeFilmes.value = 2
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_cadastrar_filme, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +38,12 @@ class CadastrarFilmeFragment : Fragment() {
 
         filmeViewModel =
             ViewModelProvider(this, FilmeViewModelFactory()).get(FilmeViewModel::class.java)
+
+        filmeViewModel.quantidadeFilme
+            .observe(viewLifecycleOwner,
+                {
+                    textViewTotalFilmes.text = it.toString()
+                })
 
         btnCadastrarFilme.setOnClickListener {
             var nomeFilme = editTextNomeFilme.text.toString()
@@ -39,12 +54,15 @@ class CadastrarFilmeFragment : Fragment() {
 
             if (!nomeFilme.isNullOrEmpty() && !anoLancamento.isNullOrEmpty()) {
                 filmeViewModel.salvarFilme(nomeFilme, anoLancamento)
+                filmeViewModel.addFilme()
 
                 Toast.makeText(
                     requireContext(),
                     "Filme Cadastrado com Sucesso!",
                     Toast.LENGTH_LONG
                 ).show()
+
+                quantidadeFilmes.value!!.plus(1)
 
                 findNavController().navigate(R.id.action_cadastrarFilmeFragment_to_listaFilmeFragment)
             } else {

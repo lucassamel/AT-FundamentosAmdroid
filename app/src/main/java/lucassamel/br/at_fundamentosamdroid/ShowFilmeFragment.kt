@@ -19,7 +19,6 @@ class ShowFilmeFragment : Fragment() {
     //private lateinit var viewModel: ShowFilmeViewModel
     private lateinit var fullViewModel: FullViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +32,6 @@ class ShowFilmeFragment : Fragment() {
         fullViewModel.filme
             .observe(viewLifecycleOwner){
                 updateUI(it)
-
             }
 
         //textViewQuantidadeFilmes
@@ -46,13 +44,12 @@ class ShowFilmeFragment : Fragment() {
         textViewAnoLancamento.text = filme.anoLancamento
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         btnIntent.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
-                putExtra(SearchManager.QUERY, "filme" )
+                putExtra(SearchManager.QUERY, fullViewModel.filme.value?.nomeFilme)
             }
             if (intent.resolveActivity(requireContext().packageManager) != null) {
                 startActivity(intent)

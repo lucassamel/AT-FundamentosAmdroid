@@ -10,6 +10,16 @@ import lucassamel.br.at_fundamentosamdroid.model.Filme
 class FilmeViewModel : ViewModel() {
     //Regras de Negocio
 
+    var quantidadeFilme = MutableLiveData<Int>()
+    init {
+        quantidadeFilme.value = 2
+    }
+
+    fun addFilme(){
+        quantidadeFilme.value = quantidadeFilme.value!!
+            .plus(1)
+    }
+
     private val _filmes = MutableLiveData<List<Filme>>()
     val filmes: LiveData<List<Filme>>
         get() = _filmes
